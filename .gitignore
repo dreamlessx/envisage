@@ -1,0 +1,45 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.egg-info/
+
+# Environments
+.env
+.venv/
+venv/
+
+# Datasets & reproducible artifacts (large)
+data/hda/
+data/shards/
+evaluation/predictions/
+evaluation/candidates/
+evaluation/choices/
+evaluation/figures/
+evaluation/final_figures/
+evaluation/fixed/
+evaluation/hybrid/
+evaluation/hybrid_v2/
+evaluation/burn/
+evaluation/v2/
+evaluation/v3/
+!evaluation/burn/**/SUMMARY.json
+!evaluation/burn/**/SUMMARY.md
+!evaluation/v3/results.json
+!evaluation/v3/summary.md
+
+# Cluster logs
+slurm_*.out
+slurm_*.err
+.logs/
+
+# Images (only paper figures are tracked)
+*.png
+!paper/figures/*.png
+!paper/figures/*.pdf
+
+# Editor / OS
+.DS_Store
+.idea/
+.vscode/

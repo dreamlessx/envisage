@@ -1,0 +1,39 @@
+# envisage -- rhinoplasty pipeline configuration
+
+procedure: rhinoplasty
+
+# Mask generation
+mask:
+  dilation_px: 20
+  feather_sigma: 12.0
+  pad_to_multiple: 16
+
+# TPS augmentation
+tps:
+  max_displacement: 0.03
+  num_augments: 5
+  add_boundary_points: true
+  boundary_points_per_edge: 4
+
+# Rhinoplasty-specific warp ranges
+warp:
+  bridge_flatten_range: [0.005, 0.025]
+  tip_refine_range: [0.005, 0.015]
+  wing_narrow_range: [0.005, 0.02]
+
+# FLUX inpainting
+generation:
+  model: black-forest-labs/FLUX.1-dev
+  num_inference_steps: 30
+  guidance_scale: 3.5
+  strength: 0.75
+  target_size: 1024
+
+# Depth estimation
+depth:
+  model: depth-anything/Depth-Anything-V2-Small-hf
+
+# Identity measurement
+identity:
+  model: buffalo_l
+  threshold: 0.65

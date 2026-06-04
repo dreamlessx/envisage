@@ -1,0 +1,48 @@
+flux_path: "black-forest-labs/FLUX.1-Fill-dev"
+dtype: "bfloat16"
+
+model:
+  union_cond_attn: true
+  add_cond_attn: false
+  latent_lora: false
+  use_sep: false
+
+train:
+  batch_size: 1
+  accumulate_grad_batches: 2
+  dataloader_workers: 4
+  save_interval: 250
+  sample_interval: 250
+  max_steps: 2000
+  gradient_checkpointing: true
+  save_path: "checkpoints/icedit"
+
+  condition_type: "edit"
+  dataset:
+    type: "surgical"
+    path: "data/training/icedit/train"
+    condition_size: 512
+    target_size: 512
+    image_size: 512
+    drop_text_prob: 0.1
+
+  wandb:
+    project: "envisage-icedit"
+
+  lora_config:
+    r: 32
+    lora_alpha: 32
+    init_lora_weights: "gaussian"
+    target_modules: "(.*x_embedder|.*(?<!single_)transformer_blocks\\.[0-9]+\\.norm1\\.linear|.*(?<!single_)transformer_blocks\\.[0-9]+\\.attn\\.to_k|.*(?<!single_)transformer_blocks\\.[0-9]+\\.attn\\.to_q|.*(?<!single_)transformer_blocks\\.[0-9]+\\.attn\\.to_v|.*(?<!single_)transformer_blocks\\.[0-9]+\\.attn\\.to_out\\.0|.*(?<!single_)transformer_blocks\\.[0-9]+\\.ff\\.net\\.2|.*single_transformer_blocks\\.[0-9]+\\.norm\\.linear|.*single_transformer_blocks\\.[0-9]+\\.proj_mlp|.*single_transformer_blocks\\.[0-9]+\\.proj_out|.*single_transformer_blocks\\.[0-9]+\\.attn.to_k|.*single_transformer_blocks\\.[0-9]+\\.attn.to_q|.*single_transformer_blocks\\.[0-9]+\\.attn.to_v|.*single_transformer_blocks\\.[0-9]+\\.attn.to_out)"
+    num_experts: 4
+    expert_rank: 32
+    expert_alpha: 32
+    top_k: 1
+
+  optimizer:
+    type: "Prodigy"
+    params:
+      lr: 1
+      use_bias_correction: true
+      safeguard_warmup: true
+      weight_decay: 0.01
