@@ -41,7 +41,7 @@ Plus a hard identity gate: ArcFace(input, output) ≥ 0.65.
 
 SS_raw on a perfect-predictor control scores 0.919 [0.918, 0.920], anchoring the empirical ceiling.
 
-![SurgicalScore decomposition](paper/figures/fig3_decomposed_arcface.png)
+![SurgicalScore decomposition](paper/figures/fig2_diagnostic.png)
 
 ---
 
@@ -49,7 +49,7 @@ SS_raw on a perfect-predictor control scores 0.919 [0.918, 0.920], anchoring the
 
 The pipeline combines MediaPipe 478-landmark extraction, preset-conditioned TPS geometric deformation, depth-map modification, and FLUX.1-Fill masked inpainting under hard-mask compositing.
 
-![Pipeline overview](paper/figures/pipeline_public.png)
+![Pipeline overview](paper/figures/fig1_pipeline.png)
 
 Hard-mask compositing copies outside-mask pixels exactly, providing an architectural guarantee of outside-region identity preservation (outside-mask SSIM > 0.999 by construction, not a learned property).
 
@@ -79,11 +79,11 @@ All paired comparisons significant at p < 10⁻⁴. External validation on a **4
 
 A 5-seed GT-oracle (per-case oracle selection — an upper bound, not a deployable system) reduces the ArcFace gap by 73% (−0.054 → −0.015) on the N=109 five-seed-complete subset; SurgicalScore rises from 0.609 to 0.743 [0.725, 0.762] on the N=207 subset. This indicates candidate-space headroom for a learned ranker.
 
-![Metrics distribution](paper/figures/fig_metrics_dist.png)
+![Six surgeon-reviewed rhinoplasty cases — input, Envisage prediction, post-operative target](paper/figures/fig3_qualitative_rhinoplasty.png)
 
 **Example outputs:**
 
-![Rhinoplasty example](paper/figures/demo_rhinoplasty.png)
+![Cross-procedure qualitative examples — rhinoplasty, blepharoplasty, rhytidectomy](paper/figures/fig4_cross_procedure.png)
 
 ---
 
